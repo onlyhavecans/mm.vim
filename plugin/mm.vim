@@ -1,11 +1,3 @@
-if !exists('g:mm_accounts')
-  " Crappy defaults
-    echohl ErrorMsg
-    echom "You didn't set g:mm_accounts for mm.vim so horrible defaults are loaded"
-    echohl None
-  let g:mm_accounts = ['Pants', 'Rands', 'Duece', 'Spigot']
-endif
-
 function! SetMuck(user)
   let w:muck = a:user
   echom 'Outfile set to: '.w:muck
@@ -21,7 +13,7 @@ endfunction
 
 function! SendToMuck()
   if exists("w:muck")
-    execute ".w >> ".w:muck."/in"
+    execute ".w >> ~/muck/".w:muck."/in"
     if exists('g:mm_nohistorymode')
       normal ggdGi
     else
@@ -33,6 +25,17 @@ function! SendToMuck()
   endif
 endfunction
 
+function! s:CleanupBehavior()
+  " clean up behavior to be more input box like
+  let g:powerline_loaded = 1
+  colorscheme default
+  syntax off
+  filetype off
+  set laststatus=0
+  set nonumber
+  set wrap
+endfunction
+
 function! s:SetupAccounts(accounts)
   let l:number = 1
   for account in a:accounts
@@ -42,14 +45,16 @@ function! s:SetupAccounts(accounts)
 endfunction
 
 function! s:SetupMM()
-  " clean up behavior to be more input box like
-  let g:powerline_loaded = 1
-  colorscheme default
-  syntax off
-  filetype off
-  set laststatus=0
-  set nonumber
-  set wrap
+  " Warn about crappy defaults if they didn't set the important stuff
+  if !exists('g:mm_accounts')
+    " Crappy defaults
+    echohl ErrorMsg
+    echom "You didn't set g:mm_accounts for mm.vim so horrible defaults are loaded"
+    echohl None
+    let g:mm_accounts = ['Pants', 'Rands', 'Duece', 'Spigot']
+  endif
+
+  call s:CleanupBehavior()
 
   map <leader>m :call SendToMuck()<CR>
   imap <leader>m <ESC>:call SendToMuck()<CR>
