@@ -13,7 +13,8 @@ endfunction
 
 function! SendToMuck()
   if exists("w:muck")
-    execute ".w >> ~/muck/".w:muck."/in"
+    let l:infile = expand("~/muck/".w:muck."/in")
+    execute ".w >> ".l:infile
     if exists('g:mm_nohistorymode')
       normal ggdGi
     else
