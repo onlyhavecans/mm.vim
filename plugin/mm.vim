@@ -36,7 +36,7 @@ endfunction
 function! s:SetupAccounts(accounts)
   let l:number = 1
   for account in a:accounts
-    execute "map <Leader>".l:number." :call SetMuck(".account.")<CR>"
+    execute "map <Leader>".l:number." :call SetMuck('".account."')<CR>"
     let l:number += 1
   endfor
 endfunction
