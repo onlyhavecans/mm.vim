@@ -1,9 +1,9 @@
-if !exists('g.mmAccounts')
+if !exists('g.mm_accounts')
   " Crappy defaults
     echohl ErrorMsg
     echom "Horrible default account names have been loaded since you did not set g.mmAccounts to a list of accounts"
     echohl None
-  let g:mmAccounts = ['Pants', 'Rands', 'Duece', 'Spigot']
+  let g:mm_accounts = ['Pants', 'Rands', 'Duece', 'Spigot']
 endif
 
 function! SetMuck(user)
@@ -22,7 +22,7 @@ endfunction
 function! SendToMuck()
   if exists("w:muck")
     execute ".w >> ".w:muck."/in"
-    if exists('g:mmNoHistoryMode')
+    if exists('g:mm_nohistorymode')
       normal ggdGi
     else
       normal o
@@ -54,7 +54,7 @@ function! s:SetupMM()
   map <leader>m :call SendToMuck()<CR>
   imap <leader>m <ESC>:call SendToMuck()<CR>
 
-  call s:SetupAccounts(g:mmAccounts)
+  call s:SetupAccounts(g:mm_accounts)
 endfunction
 
 au BufRead,BufNewFile mucking_around call s:SetupMM()
