@@ -14,5 +14,5 @@ Normally you will want to keep history since this will allow for things like com
 
 ## Tips
 * I keep all the login strings at the top of my `mucking_around` file, one per line to speed up login.
-* On the nect line after that I keep all the most common commands and names I type so I can use ^N and ^P name completion
+* On the next line after that I keep all the most common commands and names I type so I can use ^n and ^p name completion
 
