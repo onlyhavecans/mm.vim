@@ -1,3 +1,11 @@
+if !exists('g.mmAccounts')
+  " Crappy defaults
+    echohl ErrorMsg
+    echom "Horrible default account names have been loaded since you did not set g.mmAccounts to a list of accounts"
+    echohl None
+  let g:mmAccounts = ['Pants', 'Rands', 'Duece', 'Spigot']
+endif
+
 function! SetMuck(user)
   let w:muck = a:user
   echom 'Outfile set to: '.w:muck
@@ -17,11 +25,19 @@ function! SendToMuck()
     normal o
     startinsert
   else
-    echohl ErrorMsg | echo "No muck set! Use <leader># to set" | echohl None
+    echohl ErrorMsg | echom "No muck set! Use <leader># to set" | echohl None
   endif
 endfunction
 
-function! s:SetupMUCK()
+function! s:SetupAccounts(accounts)
+  let l:number = 1
+  for account in a:accounts
+    execute "map <Leader>".l:number." :call SetMuck(".account.")<CR>"
+    let l:number += 1
+  endfor
+endfunction
+
+function! s:SetupMM()
   " clean up behavior to be more input box like
   let g:powerline_loaded = 1
   colorscheme default
@@ -34,7 +50,7 @@ function! s:SetupMUCK()
   map <leader>m :call SendToMuck()<CR>
   imap <leader>m <ESC>:call SendToMuck()<CR>
 
-  map <leader>1 :call SetMuck("pants")<CR>
+  call s:SetupAccounts(g:mmAccounts)
 endfunction
 
-au BufRead,BufNewFile mucking_around call s:SetupMUCK()
+au BufRead,BufNewFile mucking_around call s:SetupMM()
