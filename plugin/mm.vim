@@ -22,7 +22,11 @@ endfunction
 function! SendToMuck()
   if exists("w:muck")
     execute ".w >> ".w:muck."/in"
-    normal o
+    if exists('g:mmNoHistoryMode')
+      normal ggdGi
+    else
+      normal o
+    endif
     startinsert
   else
     echohl ErrorMsg | echom "No muck set! Use <leader># to set" | echohl None
