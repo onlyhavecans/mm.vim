@@ -1,7 +1,7 @@
-if !exists('g.mm_accounts')
+if !exists('g:mm_accounts')
   " Crappy defaults
     echohl ErrorMsg
-    echom "Horrible default account names have been loaded since you did not set g.mmAccounts to a list of accounts"
+    echom "You didn't set g:mm_accounts for mm.vim so horrible defaults are loaded"
     echohl None
   let g:mm_accounts = ['Pants', 'Rands', 'Duece', 'Spigot']
 endif
