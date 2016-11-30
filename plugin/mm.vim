@@ -32,9 +32,11 @@ function! s:CleanupBehavior()
   colorscheme default
   syntax off
   filetype off
+  filetype plugin indent off
   set laststatus=0
   set nonumber
   set wrap
+  set spell
 endfunction
 
 function! s:SetupAccounts(accounts)
