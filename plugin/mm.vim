@@ -36,7 +36,8 @@ function! s:CleanupBehavior()
   set laststatus=0
   set nonumber
   set wrap
-  set spell
+  set spell linebreak nolist
+  set showbreak=…
 endfunction
 
 function! s:SetupAccounts(accounts)
