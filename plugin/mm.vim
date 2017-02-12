@@ -26,6 +26,21 @@ function! SendToMuck()
   endif
 endfunction
 
+function! SendSelectionToMuck()
+  if exists("w:muck")
+    let l:infile = expand("~/muck/".w:muck."/in")
+    execute "'<,'>w >> ".l:infile
+    if exists('g:mm_nohistorymode')
+      normal ggdGi
+    else
+      normal o
+    endif
+    startinsert
+  else
+    echohl ErrorMsg | echom "No muck set! Use <leader># to set" | echohl None
+  endif
+endfunction
+
 function! s:CleanupBehavior()
   " clean up behavior to be more input box like
   let g:powerline_loaded = 1
@@ -62,6 +77,7 @@ function! s:SetupMM()
 
   map <leader>m :call SendToMuck()<CR>
   imap <leader>m <ESC>:call SendToMuck()<CR>
+  vmap <leader>v :call SendSelectionToMuck()<CR>
 
   call s:SetupAccounts(g:mm_accounts)
 endfunction
